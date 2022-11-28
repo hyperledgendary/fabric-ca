@@ -221,6 +221,10 @@ dist/darwin-amd64: release/darwin-amd64
 	cd release/darwin-amd64 && tar -czvf hyperledger-fabric-ca-darwin-amd64-$(PROJECT_VERSION).tar.gz *
 dist/linux-amd64: release/linux-amd64
 	cd release/linux-amd64 && tar -czvf hyperledger-fabric-ca-linux-amd64-$(PROJECT_VERSION).tar.gz *
+dist/darwin-arm64: release/darwin-arm64
+	cd release/darwin-arm64 && tar -czvf hyperledger-fabric-ca-darwin-arm64-$(PROJECT_VERSION).tar.gz *
+dist/linux-arm64: release/linux-arm64
+	cd release/linux-arm64 && tar -czvf hyperledger-fabric-ca-linux-arm64-$(PROJECT_VERSION).tar.gz *
 
 .PHONY: clean
 clean: docker-clean release-clean
@@ -239,5 +243,7 @@ dist-clean:
 	-@rm -rf release/windows-amd64/hyperledger-fabric-ca-windows-amd64-$(PROJECT_VERSION).tar.gz ||:
 	-@rm -rf release/darwin-amd64/hyperledger-fabric-ca-darwin-amd64-$(PROJECT_VERSION).tar.gz ||:
 	-@rm -rf release/linux-amd64/hyperledger-fabric-ca-linux-amd64-$(PROJECT_VERSION).tar.gz ||:
+	-@rm -rf release/darwin-arm64/hyperledger-fabric-ca-darwin-arm64-$(PROJECT_VERSION).tar.gz ||:
+	-@rm -rf release/linux-arm64/hyperledger-fabric-ca-linux-arm64-$(PROJECT_VERSION).tar.gz ||:
 
 .FORCE:
