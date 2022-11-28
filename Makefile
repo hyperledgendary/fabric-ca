@@ -62,7 +62,7 @@ export GO_LDFLAGS
 IMAGES = $(PROJECT_NAME)
 FVTIMAGE = $(PROJECT_NAME)-fvt
 
-RELEASE_PLATFORMS = linux-amd64 darwin-amd64 windows-amd64
+RELEASE_PLATFORMS = linux-amd64 linux-arm64 darwin-amd64 darwin-arm64 windows-amd64
 RELEASE_PKGS = fabric-ca-client fabric-ca-server
 
 TOOLS = build/tools
@@ -178,7 +178,16 @@ release/darwin-amd64: $(patsubst %,release/darwin-amd64/bin/%, $(RELEASE_PKGS))
 release/linux-amd64: GOOS=linux
 release/linux-amd64: $(patsubst %,release/linux-amd64/bin/%, $(RELEASE_PKGS))
 
+release/darwin-arm64: GOOS=darwin
+release/darwin-arm64: CC=/usr/bin/clang
+release/darwin-arm64: $(patsubst %,release/darwin-arm64/bin/%, $(RELEASE_PKGS))
+
+release/linux-arm64: GOOS=linux
+release/linux-arm64: $(patsubst %,release/linux-arm64/bin/%, $(RELEASE_PKGS))
+
 release/%-amd64: GOARCH=amd64
+
+release/%-arm64: GOARCH=arm64
 
 release/linux-%: GOOS=linux
 
