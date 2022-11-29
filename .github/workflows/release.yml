@@ -79,7 +79,8 @@ jobs:
 #        name: Publish Docker Images
   create-release:
     name: Create GitHub Release
-    needs: [ build-binaries, build-and-push-docker-images ]
+    needs: [ build-binaries ]
+#    needs: [ build-binaries, build-and-push-docker-images ]
     runs-on: ubuntu-20.04
     permissions:
       contents: write
