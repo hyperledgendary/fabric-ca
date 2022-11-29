@@ -4,8 +4,8 @@
 
 name: Release
 on:
-  push:
-    branches: [ "feature/arm64" ]
+#  push:
+#    branches: [ "feature/arm64" ]
   workflow_dispatch:
 #    inputs:
 #      release:
