@@ -4,20 +4,22 @@
 
 name: Release
 on:
+  push:
+    branches: [ "feature/arm64" ]
   workflow_dispatch:
-    inputs:
-      release:
-        description: 'Fabric CA Release, e.g. 1.5.5'
-        required: true
-        type: string
-      two_digit_release:
-        description: 'Fabric CA Two Digit Release, e.g. 1.5'
-        required: true
-        type: string
-      commit_hash:
-        description: 'Commit hash, e.g. df9c661a192f8cf11376d9d643a0021f1a76c34b'
-        required: true
-        type: string
+#    inputs:
+#      release:
+#        description: 'Fabric CA Release, e.g. 1.5.5'
+#        required: true
+#        type: string
+#      two_digit_release:
+#        description: 'Fabric CA Two Digit Release, e.g. 1.5'
+#        required: true
+#        type: string
+#      commit_hash:
+#        description: 'Commit hash, e.g. df9c661a192f8cf11376d9d643a0021f1a76c34b'
+#        required: true
+#        type: string
 
 env:
   GO_VER: 1.18.7
@@ -52,29 +54,29 @@ jobs:
         with:
           name: hyperledger-fabric-ca-${{ matrix.target }}-amd64-${{ inputs.release }}.tar.gz
           path: release/${{ matrix.target }}-amd64/hyperledger-fabric-ca-${{ matrix.target }}-amd64-${{ inputs.release }}.tar.gz
-  build-and-push-docker-images:
-    name: Build and Push Fabric CA Docker Images
-    runs-on: ubuntu-20.04
-    steps:
-      - run: sudo apt clean
-        name: Run APT Clean
-      - run: sudo apt update
-        name: Run Apt Update
-      - run: sudo apt install -y gcc haveged libtool make
-        name: Install Dependencies
-      - uses: actions/setup-go@v3
-        name: Install Go
-        with:
-          go-version: ${{ env.GO_VER }}
-      - uses: actions/checkout@v3
-        name: Checkout Fabric CA Code
-      - run: ./ci/scripts/publish_docker.sh
-        env:
-          RELEASE: ${{ inputs.release }}
-          TWO_DIGIT_RELEASE: ${{ inputs.two_digit_release }}
-          DOCKER_PASSWORD: ${{ secrets.DOCKERHUB_TOKEN }}
-          DOCKER_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
-        name: Publish Docker Images
+#  build-and-push-docker-images:
+#    name: Build and Push Fabric CA Docker Images
+#    runs-on: ubuntu-20.04
+#    steps:
+#      - run: sudo apt clean
+#        name: Run APT Clean
+#      - run: sudo apt update
+#        name: Run Apt Update
+#      - run: sudo apt install -y gcc haveged libtool make
+#        name: Install Dependencies
+#      - uses: actions/setup-go@v3
+#        name: Install Go
+#        with:
+#          go-version: ${{ env.GO_VER }}
+#      - uses: actions/checkout@v3
+#        name: Checkout Fabric CA Code
+#      - run: ./ci/scripts/publish_docker.sh
+#        env:
+#          RELEASE: ${{ inputs.release }}
+#          TWO_DIGIT_RELEASE: ${{ inputs.two_digit_release }}
+#          DOCKER_PASSWORD: ${{ secrets.DOCKERHUB_TOKEN }}
+#          DOCKER_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+#        name: Publish Docker Images
   create-release:
     name: Create GitHub Release
     needs: [ build-binaries, build-and-push-docker-images ]
