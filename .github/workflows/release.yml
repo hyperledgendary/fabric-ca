@@ -7,19 +7,19 @@ on:
 #  push:
 #    branches: [ "feature/arm64" ]
   workflow_dispatch:
-#    inputs:
-#      release:
-#        description: 'Fabric CA Release, e.g. 1.5.5'
-#        required: true
-#        type: string
-#      two_digit_release:
-#        description: 'Fabric CA Two Digit Release, e.g. 1.5'
-#        required: true
-#        type: string
-#      commit_hash:
-#        description: 'Commit hash, e.g. df9c661a192f8cf11376d9d643a0021f1a76c34b'
-#        required: true
-#        type: string
+    inputs:
+      release:
+        description: 'Fabric CA Release, e.g. 1.5.5'
+        required: true
+        type: string
+      two_digit_release:
+        description: 'Fabric CA Two Digit Release, e.g. 1.5'
+        required: true
+        type: string
+      commit_hash:
+        description: 'Commit hash, e.g. df9c661a192f8cf11376d9d643a0021f1a76c34b'
+        required: true
+        type: string
 
 env:
   GO_VER: 1.18.7
