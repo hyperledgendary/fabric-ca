@@ -28,7 +28,7 @@
 #   - vendor - vendors third-party packages
 
 PROJECT_NAME = fabric-ca
-ALPINE_VER ?= 3.16
+ALPINE_VER ?= 3.17
 DEBIAN_VER ?= stretch
 BASE_VERSION = 1.5.6
 IS_RELEASE = true
@@ -55,6 +55,7 @@ METADATA_VAR = Version=$(PROJECT_VERSION)
 GO_VER = 1.18.8
 GO_SOURCE := $(shell find . -name '*.go')
 GO_LDFLAGS = $(patsubst %,-X $(PKGNAME)/lib/metadata.%,$(METADATA_VAR))
+
 export GO_LDFLAGS
 
 IMAGES = $(PROJECT_NAME)
@@ -103,7 +104,7 @@ fabric-ca-server: bin/fabric-ca-server
 
 bin/%: $(GO_SOURCE)
 	@echo "Building ${@F} in bin directory ..."
-	@mkdir -p bin && go build -o bin/${@F} -tags "pkcs11" -ldflags "$(GO_LDFLAGS)" $(PKGNAME)/$(path-map.${@F})
+	mkdir -p bin && go build -o bin/${@F} -tags "pkcs11" -ldflags "$(GO_LDFLAGS)" $(PKGNAME)/$(path-map.${@F})
 	@echo "Built bin/${@F}"
 
 build/image/fabric-ca/$(DUMMY):
@@ -180,7 +181,7 @@ release/darwin-amd64: $(patsubst %,release/darwin-amd64/bin/%, $(RELEASE_PKGS))
 release/darwin-arm64: CC=clang
 release/darwin-arm64: $(patsubst %,release/darwin-arm64/bin/%, $(RELEASE_PKGS))
 
-release/linux-amd64: CC=gcc
+release/linux-amd64: CC=x86_64-linux-gnu-gcc
 release/linux-amd64: $(patsubst %,release/linux-amd64/bin/%, $(RELEASE_PKGS))
 
 release/linux-arm64: CC=aarch64-linux-gnu-gcc
