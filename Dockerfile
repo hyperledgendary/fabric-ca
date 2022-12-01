@@ -50,9 +50,10 @@ FROM alpine:${ALPINE_VER}
 RUN apk add --no-cache \
     gcompat \
 	tzdata;
+
+COPY --from=builder /build/fabric-ca/bin /usr/local/bin
+
 ENV FABRIC_CA_HOME /etc/hyperledger/fabric-ca-server
-
-COPY --from=builder /build/fabric-ca/bin/* /usr/local/bin
-
 EXPOSE 7054
+
 CMD fabric-ca-server start -b admin:adminpw
