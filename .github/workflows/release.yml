@@ -64,7 +64,7 @@ jobs:
           name: hyperledger-fabric-ca-${{ matrix.platform }}-${{ steps.tag.outputs.tag }}.tar.gz
           path: release/hyperledger-fabric-ca-${{ matrix.platform }}-${{ steps.tag.outputs.tag }}.tar.gz
 
-  container:
+  build-and-push-image:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -101,7 +101,6 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-
       - name: Build and push
         id: push
         uses: docker/build-push-action@v3
@@ -121,7 +120,7 @@ jobs:
 
   create-release:
     name: Create GitHub Release
-    needs: [ build-binaries, build-and-push-docker-images ]
+    needs: [ build-binaries, build-and-push-image ]
     runs-on: ubuntu-20.04
     permissions:
       contents: write
