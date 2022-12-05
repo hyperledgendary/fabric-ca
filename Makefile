@@ -171,6 +171,9 @@ release/%-arm64: 	GOARCH=arm64
 
 release/windows-amd64: CC=x86_64-w64-mingw32-gcc
 release/windows-amd64: $(patsubst %,release/windows-amd64/bin/%, $(RELEASE_PKGS))
+release/windows-amd64:
+	mv $(abspath $@)/bin/fabric-ca-client $(abspath $@)/bin/fabric-ca-client.exe
+	mv $(abspath $@)/bin/fabric-ca-server $(abspath $@)/bin/fabric-ca-server.exe
 
 release/darwin-amd64: CC=clang
 release/darwin-amd64: $(patsubst %,release/darwin-amd64/bin/%, $(RELEASE_PKGS))
