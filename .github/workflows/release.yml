@@ -133,6 +133,8 @@ jobs:
       - name: Release Fabric CA Version
         uses: ncipollo/release-action@v1
         with:
+          allowUpdates: "true"
           artifacts: "*.tar.gz/*.tar.gz"
           bodyFile: release_notes/${{ github.ref_name }}.md
+          tag: ${{ github.ref_name }}
           token: ${{ secrets.GITHUB_TOKEN }}
