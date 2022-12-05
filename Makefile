@@ -181,7 +181,6 @@ release/darwin-amd64: $(patsubst %,release/darwin-amd64/bin/%, $(RELEASE_PKGS))
 release/darwin-arm64: CC=clang
 release/darwin-arm64: $(patsubst %,release/darwin-arm64/bin/%, $(RELEASE_PKGS))
 
-#release/linux-amd64: CC=gcc
 release/linux-amd64: CC=x86_64-linux-gnu-gcc
 release/linux-amd64: $(patsubst %,release/linux-amd64/bin/%, $(RELEASE_PKGS))
 

@@ -61,7 +61,7 @@ jobs:
           path: release/${{ matrix.platform }}/hyperledger-fabric-ca-${{ matrix.platform }}-${{ github.ref_name }}.tar.gz
 
   build-and-push-image:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
 
     permissions:
       contents: read
